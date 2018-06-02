@@ -1,18 +1,27 @@
 {
   "name": "world-cup-prediction",
   "version": "0.0.1",
-  "description": " ⚽️ 🏆 ",
-  "main": "index.js",
+  "engines": {
+    "node": "8.x"
+  },
+  "description": " ⚽️ 🏆 A prediction game for 2018 FIFA World Cup",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/app.js",
+    "test": "tsc",
+    "dev-server": "nodemon -w src -x ts-node src/app.ts",
+    "lint": "tslint src/**/*.ts",
+    "build": "tsc",
+    "precommit": "pretty-quick --staged"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sorosliu1029/World-Cup-2018.git"
   },
   "keywords": [
-    "world-cup"
+    "world-cup",
+    "koa2",
+    "typescript"
   ],
   "author": "Soros Liu",
   "license": "MIT",
@@ -21,13 +30,25 @@
   },
   "homepage": "https://github.com/Sorosliu1029/World-Cup-2018#readme",
   "dependencies": {
-    "koa": "^2.5.1"
+    "ejs": "^2.6.1",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.3",
+    "koa-views": "^6.1.4"
   },
   "devDependencies": {
+    "@types/koa": "^2.0.45",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/koa-router": "^7.0.28",
+    "@types/koa-static": "^4.0.0",
+    "@types/koa-views": "^2.0.3",
+    "dotenv": "^5.0.1",
     "nodemon": "^1.17.5",
+    "prettier": "^1.13.4",
+    "pretty-quick": "^1.6.0",
+    "ts-node": "^6.0.5",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.4"
-  },
-  "engines": {
-    "node": "8.x"
   }
 }

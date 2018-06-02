@@ -1,0 +1,20 @@
+{
+  "extends": "tslint-eslint-rules",
+  "rulesDirectory": ["src", "config"],
+  "rules": {
+    "max-line-length": [true, 120],
+    "semicolon": [true, "never"],
+    "quotemark": [true, "single"],
+    "ordered-imports": false,
+    "no-var-requires": false,
+    "no-param-reassign": false,
+    "no-console": false,
+    "no-unused-expressions": false,
+    "radix": false,
+    "no-underscore-dangle": false,
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "object-literal-sort-keys": false,
+    "object-curly-spacing": true,
+    "trailing-comma": [true, { "multiline": { "typeLiterals": "ignore" }, "singleline": "never" }]
+  }
+}
