@@ -12,9 +12,9 @@ const port = process.env.LEANCLOUD_APP_PORT || process.env.PORT || 3000
 
 app
   .use(bodyParser())
-  .use(serve(path.join(__dirname, '/public')))
+  .use(serve(path.join(__dirname, '../public')))
   .use(
-    views(__dirname + '/views', {
+    views(path.join(__dirname, '../views'), {
       extension: 'ejs',
     }),
   )
