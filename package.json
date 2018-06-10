@@ -13,7 +13,7 @@
     "lint": "tslint src/**/*.ts",
     "build": "tsc",
     "clean": "rm -rf dist",
-    "precommit": "pretty-quick --staged && make compile"
+    "precommit": "pretty-quick --staged && make compile && npm run build"
   },
   "repository": {
     "type": "git",
