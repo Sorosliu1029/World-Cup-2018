@@ -37,7 +37,8 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.3",
-    "koa-views": "^6.1.4"
+    "koa-views": "^6.1.4",
+    "typescript": "^2.8.4"
   },
   "devDependencies": {
     "@types/koa": "^2.0.45",
@@ -50,7 +51,6 @@
     "prettier": "^1.13.4",
     "pretty-quick": "^1.6.0",
     "ts-node": "^6.0.5",
-    "tslint": "^5.10.0",
-    "typescript": "^2.8.4"
+    "tslint": "^5.10.0"
   }
 }
