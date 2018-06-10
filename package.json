@@ -14,7 +14,7 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "precommit": "pretty-quick --staged && make compile",
-    "postinstall": "npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
