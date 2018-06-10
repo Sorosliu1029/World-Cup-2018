@@ -1,10 +1,15 @@
 import * as Router from 'koa-router'
+import { createReadStream } from 'fs'
 import { getPureRandomResult } from './utils'
 
 const router = new Router()
 
-async function index(ctx) {
-  await ctx.render('index', {result: getPureRandomResult()})
+async function game(ctx) {
+  await ctx.render('game')
+}
+
+async function about(ctx) {
+  await ctx.render('about')
 }
 
 async function post(ctx) {
@@ -12,7 +17,8 @@ async function post(ctx) {
   console.log(body)
 }
 
-router.get('/', index)
+router.get('/', game)
+router.get('/about', about)
 router.post('/', post)
 
 export default router

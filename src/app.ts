@@ -1,6 +1,5 @@
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
-import * as Router from 'koa-router'
 import * as views from 'koa-views'
 import * as serve from 'koa-static'
 import * as path from 'path'
