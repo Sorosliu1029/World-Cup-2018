@@ -2,8 +2,3 @@ data/
 node_modules/
 .leancloud/
 dist/
-
-*.png
-*.jpg
-
-public/js/*.js

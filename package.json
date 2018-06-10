@@ -8,12 +8,13 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/app.js",
-    "test": "tsc",
+    "test": "tsc && echo 'no test files'",
     "dev-server": "nodemon -w src -x ts-node src/app.ts",
     "lint": "tslint src/**/*.ts",
     "build": "tsc",
     "clean": "rm -rf dist",
-    "precommit": "pretty-quick --staged"
+    "precommit": "pretty-quick --staged && make compile",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
