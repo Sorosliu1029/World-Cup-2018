@@ -3,10 +3,10 @@ root {
 }
 
 body {
-  background-color: #b7b7b7;
-  background-repeat: repeat-x;
+  background-color: #79AD4D;
+  background-repeat: repeat;
   background-position: top;
-  background-image: url(../sprites/bg_tile.jpg);
+  background-image: url(../sprites/grass.jpeg);
 }
 
 *,
@@ -65,8 +65,12 @@ canvas {
 }
 
 #prediction {
-  position: relative;
-  top: 640px;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /***************FONTS*******************/

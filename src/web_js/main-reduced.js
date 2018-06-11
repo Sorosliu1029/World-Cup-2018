@@ -119,11 +119,6 @@ function isIOS() {
     if (navigator.platform === m.pop()) return (s_bIsIphone = !0)
   return (s_bIsIphone = !1)
 }
-window.addEventListener('orientationchange', onOrientationChange)
-function onOrientationChange() {
-  window.matchMedia('(orientation: portrait)').matches && sizeHandler()
-  window.matchMedia('(orientation: landscape)').matches && sizeHandler()
-}
 function getSize(m) {
   var c = m.toLowerCase(),
     e = window.document,
@@ -165,7 +160,6 @@ function sizeHandler() {
       ? getIOSWindowHeight()
       : getSize('Height')
     var c = getSize('Width')
-    _checkOrientation(c, m)
     s_iScaleFactor = Math.min(m / CANVAS_HEIGHT, c / CANVAS_WIDTH)
     var e = CANVAS_WIDTH * s_iScaleFactor,
       g = CANVAS_HEIGHT * s_iScaleFactor
@@ -200,23 +194,12 @@ function sizeHandler() {
       ? ($('#canvas').css('top', a + 'px'), (s_iCanvasOffsetHeight = a))
       : ($('#canvas').css('top', '0px'), (s_iCanvasOffsetHeight = 0))
     $('#canvas').css('left', d + 'px')
+    $('#prediction').css('top', g + 'px')
     resizeCanvas3D()
     s_iCanvasResizeWidth = e
     s_iCanvasResizeHeight = g
     s_iCanvasOffsetWidth = d
-    fullscreenHandler()
   }
-}
-function _checkOrientation(m, c) {
-  s_bMobile &&
-    ENABLE_CHECK_ORIENTATION &&
-    (m > c
-      ? 'landscape' === $('.orientation-msg-container').attr('data-orientation')
-        ? ($('.orientation-msg-container').css('display', 'none'), s_oMain.startUpdate())
-        : ($('.orientation-msg-container').css('display', 'block'), s_oMain.stopUpdate())
-      : 'portrait' === $('.orientation-msg-container').attr('data-orientation')
-        ? ($('.orientation-msg-container').css('display', 'none'), s_oMain.startUpdate())
-        : ($('.orientation-msg-container').css('display', 'block'), s_oMain.stopUpdate()))
 }
 function createBitmap(m, c, e) {
   var g = new createjs.Bitmap(m),
@@ -405,18 +388,6 @@ NoClickDelay.prototype = {
             ? (document.onfocusin = document.onfocusout = m)
             : (window.onpageshow = window.onpagehide = window.onfocus = window.onblur = m)
 })()
-function ctlArcadeResume() {
-  null !== s_oMain && s_oMain.startUpdate()
-}
-function ctlArcadePause() {
-  null !== s_oMain && s_oMain.stopUpdate()
-}
-function getParamValue(m) {
-  for (var c = window.location.search.substring(1).split('&'), e = 0; e < c.length; e++) {
-    var g = c[e].split('=')
-    if (g[0] == m) return g[1]
-  }
-}
 function rotateVector2D(m, c) {
   return {
     x: c.x * Math.cos(m) + c.y * Math.sin(m),
@@ -506,66 +477,6 @@ function getItem(m) {
 function clearAllItem() {
   localStorage.clear()
 }
-function fullscreenHandler() {
-  ENABLE_FULLSCREEN &&
-    !1 !== screenfull.enabled &&
-    ((s_bFullscreen =
-      screen.height < window.innerHeight + 3 && screen.height > window.innerHeight - 3 ? !0 : !1),
-    null !== s_oInterface && s_oInterface.resetFullscreenBut(),
-    null !== s_oMenu && s_oMenu.resetFullscreenBut())
-}
-if (screenfull.enabled)
-  screenfull.on('change', function() {
-    s_bFullscreen = screenfull.isFullscreen
-    null !== s_oInterface && s_oInterface.resetFullscreenBut()
-    null !== s_oMenu && s_oMenu.resetFullscreenBut()
-  })
-function extractHostname(m) {
-  m = -1 < m.indexOf('://') ? m.split('/')[2] : m.split('/')[0]
-  m = m.split(':')[0]
-  return (m = m.split('?')[0])
-}
-function extractRootDomain(m) {
-  m = extractHostname(m)
-  var c = m.split('.'),
-    e = c.length
-  2 < e && (m = c[e - 2] + '.' + c[e - 1])
-  return m
-}
-var getClosestTop = function() {
-    var m = window,
-      c = !1
-    try {
-      for (; m.parent.document !== m.document; )
-        if (m.parent.document) m = m.parent
-        else {
-          c = !0
-          break
-        }
-    } catch (e) {
-      c = !0
-    }
-    return { topFrame: m, err: c }
-  },
-  getBestPageUrl = function(m) {
-    var c = m.topFrame,
-      e = ''
-    if (m.err)
-      try {
-        try {
-          e = window.top.location.href
-        } catch (a) {
-          var g = window.location.ancestorOrigins
-          e = g[g.length - 1]
-        }
-      } catch (a) {
-        e = c.document.referrer
-      }
-    else e = c.location.href
-    return e
-  },
-  TOPFRAMEOBJ = getClosestTop(),
-  PAGE_URL = getBestPageUrl(TOPFRAMEOBJ)
 // CSpriteLibrary.js
 // settings.js
 // CPreloader.js

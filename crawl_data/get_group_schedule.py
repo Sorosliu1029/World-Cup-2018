@@ -28,25 +28,20 @@ def parse(html):
         home, away = info.find('div', class_='home'), info.find('div', class_='away')
 
         full = home.find('span', class_='fi-t__nText').text
-        full = TRANSLATION_MAP.get(full, full)
-        home_info = {
-            'full': full,
-            'short': home.find('span', class_='fi-t__nTri').text
-        }
+        home_full = TRANSLATION_MAP.get(full, full)
 
         full = away.find('span', class_='fi-t__nText').text
-        full = TRANSLATION_MAP.get(full, full)
-        away_info = {
-            'full': full,
-            'short': away.find('span', class_='fi-t__nTri').text
-        }
+        away_full = TRANSLATION_MAP.get(full, full)
+
         date = game.find('span', class_='fi-s__matchDate').text
         time = game.find('div', class_='fi-s__date-HHmm')['data-timeutc']
 
+        game_datetime = datetime.strptime('2018 ' + date + ' ' + time, '%Y %d %B %H:%M').strftime('%Y-%m-%dT%H:%M:%S.000Z')
+
         games.append({
             'objectId': '5b1d5b947b1a02001a955e{:02d}'.format(i),
-            'home': home_info,
-            'away': away_info,
+            'home': home_full,
+            'away': away_full,
             'date': date,
             'timeutc': time,
             "ACL": {
@@ -55,7 +50,7 @@ def parse(html):
                 }
             },
             "createdAt": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z'),
-            "updatedAt": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')
+            "updatedAt": game_datetime
         })
 
     return games
