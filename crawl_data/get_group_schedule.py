@@ -7,6 +7,11 @@ from datetime import datetime
 
 URL = 'https://www.fifa.com/worldcup/matches/#groupphase'
 
+TRANSLATION_MAP = {
+    'IR Iran': 'Iran',
+    'Korea Republic': 'Korea'
+}
+
 def get_html(url):
     res = requests.get(url)
     if res.ok:
@@ -21,12 +26,18 @@ def parse(html):
             break
         info = game.find('div', class_='fi-mu__m')
         home, away = info.find('div', class_='home'), info.find('div', class_='away')
+
+        full = home.find('span', class_='fi-t__nText').text
+        full = TRANSLATION_MAP.get(full, full)
         home_info = {
-            'full': home.find('span', class_='fi-t__nText').text,
+            'full': full,
             'short': home.find('span', class_='fi-t__nTri').text
         }
+
+        full = away.find('span', class_='fi-t__nText').text
+        full = TRANSLATION_MAP.get(full, full)
         away_info = {
-            'full': away.find('span', class_='fi-t__nText').text,
+            'full': full,
             'short': away.find('span', class_='fi-t__nTri').text
         }
         date = game.find('span', class_='fi-s__matchDate').text
