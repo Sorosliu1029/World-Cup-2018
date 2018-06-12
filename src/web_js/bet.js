@@ -47,7 +47,6 @@ function translate(bet_rates, total_score) {
     var value
     for (var j = 0; j < 3; j++) {
       value = bet_rates[i][j] * scores[j]
-      console.log(value)
       if (value > max_value) {
         max_value = value
         max_index = j
@@ -56,7 +55,6 @@ function translate(bet_rates, total_score) {
     results.push(max_index)
   }
 
-  console.log(results)
   return results
 }
 
