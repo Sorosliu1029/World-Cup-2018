@@ -21,9 +21,34 @@
 <body>
     <canvas id="canvas" class='ani_hack' width="1360" height="640"> </canvas>
     <div id="prediction">
-        <div id="a" class="block" style="height: 100px;">
-        test a
+        <% games.forEach(function(game) { %>
+        <div class="game">
+            <div class="info">
+                <div class="team">
+                    <%= game.team1_name %>
+                </div>
+                <div>
+                    <img class="flag" src="<%- game.team1_flag %>" />
+                </div>
+                <div class="datetime">
+                    <div><%= game.date %></div>
+                    <div><%= game.game_time %></div>
+                </div>
+                <div>
+                    <img class="flag" src="<%- game.team2_flag %>" />
+                </div>
+                <div class="team">
+                    <%= game.team2_name %>
+                </div>
+            </div>
+            <div class="prediction_result">
+                home win
+            </div>
+            <div class="bet" hidden>
+                1.0,2.0,3.0
+            </div>
         </div>
+        <% }); %>
     </div>
 </body>
 </html>

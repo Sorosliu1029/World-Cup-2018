@@ -11,7 +11,7 @@ exports.COUNTRY_MAP = {
     沙特阿拉伯: "saudiarabia",
     法国: "france",
     澳大利亚: "australia",
-    英国: "england",
+    英格兰: "england",
     哥斯达黎加: "costarica",
     瑞典: "sweden",
     比利时: "belgium",

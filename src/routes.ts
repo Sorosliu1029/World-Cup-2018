@@ -1,5 +1,5 @@
 import * as Router from 'koa-router'
-import { set } from 'lodash'
+import { set, take } from 'lodash'
 import { get_games } from './utils'
 
 const router = new Router()
@@ -7,7 +7,7 @@ const router = new Router()
 async function game(ctx) {
   const games = await get_games()
   await ctx.render('game', {
-    games: games,
+    games: take(games, 4),
   })
 }
 

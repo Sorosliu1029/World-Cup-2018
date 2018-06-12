@@ -3078,6 +3078,7 @@ function sizeHandler() {
       : ($('#canvas').css('top', '0px'), (s_iCanvasOffsetHeight = 0))
     $('#canvas').css('left', d + 'px')
     $('#prediction').css('top', g + 'px')
+    $('#prediction').css('height', (m-g) + 'px')
     resizeCanvas3D()
     s_iCanvasResizeWidth = e
     s_iCanvasResizeHeight = g
