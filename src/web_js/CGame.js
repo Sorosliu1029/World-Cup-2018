@@ -1,4 +1,5 @@
 function CGame(m) {
+  SCORES = []
   var c,
     e,
     g,
@@ -40,6 +41,7 @@ function CGame(m) {
     this.pause(!0)
     $(s_oMain).trigger('start_level', 1)
     G = 0
+    SCORES = []
     F = 1
     y = []
     l = new createjs.Container()
@@ -162,6 +164,7 @@ function CGame(m) {
   }
   this.addScore = function(b, a) {
     G += b
+    SCORES.push(b)
     c.refreshTextScoreBoard(G, F.toFixed(1), a, !0)
   }
   this.getLevel = function() {
@@ -176,6 +179,7 @@ function CGame(m) {
   }
   this.resetValues = function() {
     G = 0
+    SCORES = []
     c.refreshTextScoreBoard(0, 0, 0, !1)
     J = 0
     F = 1
@@ -341,6 +345,8 @@ function CGame(m) {
   this.endTurn = function() {
     J++
     c.refreshLaunchBoard(J, NUM_OF_PENALTY)
+    var bet_rates = get_bet_rates()
+    var results = translate(bet_rates, SCORES)
     J < NUM_OF_PENALTY
       ? (this.resetScene(), (w = !1), (L = MS_TIME_SWIPE_START))
       : ((I = STATE_FINISH),
@@ -348,6 +354,7 @@ function CGame(m) {
           ((s_iBestScore = Math.floor(G)),
           saveItem(LOCALSTORAGE_STRING[LOCAL_BEST_SCORE], Math.floor(G))),
         c.createWinPanel(Math.floor(G)),
+        update_results(results),
         $(s_oMain).trigger('end_level', 1))
   }
   this.textGoal = function() {

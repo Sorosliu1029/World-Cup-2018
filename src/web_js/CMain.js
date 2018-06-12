@@ -137,5 +137,6 @@ function CMain(m) {
   var l = m
   ENABLE_CHECK_ORIENTATION = m.check_orientation
   ENABLE_FULLSCREEN = m.fullscreen
+  SCORES = []
   this.initContainer()
 }

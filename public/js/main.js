@@ -76,6 +76,78 @@ function CTextButton(m, c, e, g, a, d, b) {
   this._init(m, c, e, g, a, d, b)
   return this
 }
+function get_bet_rates() {
+  return $('.bet').map(function(index, ele) {
+    return [
+      ele.innerText.split(',').map(function(n) {
+        return 90 / Number(n)
+      }),
+    ]
+  })
+}
+
+function update_results(results) {
+  var results_ele = $('.result')
+  var homes = $('.home')
+  var aways = $('.away')
+  results_ele.map(function(index, ele) {
+    var text = ele.innerText
+    switch (results[index]) {
+      case 0:
+        text = homes[index].innerText + '会赢'
+        break
+      case 1:
+        text = '两队打平'
+        break
+      case 2:
+        text = aways[index].innerText + '会赢'
+        break
+      default:
+        break
+    }
+    ele.innerText = text
+  })
+}
+
+function translate(bet_rates, total_score) {
+  var scores = total_score.map(function(s) {
+    return s / 100
+  })
+  if (scores.length < 5) {
+    scores = scores.concat(Array(5 - scores.length).fill(0.1))
+  }
+  shuffle(scores)
+  var results = []
+
+  for (var i = 0; i < bet_rates.length; i++) {
+    var max_value = 0
+    var max_index = 0
+    var value
+    for (var j = 0; j < 3; j++) {
+      value = bet_rates[i][j] * scores[j]
+      console.log(value)
+      if (value > max_value) {
+        max_value = value
+        max_index = j
+      }
+    }
+    results.push(max_index)
+  }
+
+  console.log(results)
+  return results
+}
+
+function shuffle(a) {
+  var j, x, i
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
+  }
+  return a
+}
 function CBall(m, c, e, g, a) {
   var d,
     b,
@@ -822,6 +894,7 @@ function CMain(m) {
   var l = m
   ENABLE_CHECK_ORIENTATION = m.check_orientation
   ENABLE_FULLSCREEN = m.fullscreen
+  SCORES = []
   this.initContainer()
 }
 Detector = {
@@ -11999,6 +12072,7 @@ function CScenario() {
   SHOW_3D_RENDER ? (w.addScene('Test', this._init), w.start()) : this._init()
 }
 function CGame(m) {
+  SCORES = []
   var c,
     e,
     g,
@@ -12040,6 +12114,7 @@ function CGame(m) {
     this.pause(!0)
     $(s_oMain).trigger('start_level', 1)
     G = 0
+    SCORES = []
     F = 1
     y = []
     l = new createjs.Container()
@@ -12162,6 +12237,7 @@ function CGame(m) {
   }
   this.addScore = function(b, a) {
     G += b
+    SCORES.push(b)
     c.refreshTextScoreBoard(G, F.toFixed(1), a, !0)
   }
   this.getLevel = function() {
@@ -12176,6 +12252,7 @@ function CGame(m) {
   }
   this.resetValues = function() {
     G = 0
+    SCORES = []
     c.refreshTextScoreBoard(0, 0, 0, !1)
     J = 0
     F = 1
@@ -12341,6 +12418,8 @@ function CGame(m) {
   this.endTurn = function() {
     J++
     c.refreshLaunchBoard(J, NUM_OF_PENALTY)
+    var bet_rates = get_bet_rates()
+    var results = translate(bet_rates, SCORES)
     J < NUM_OF_PENALTY
       ? (this.resetScene(), (w = !1), (L = MS_TIME_SWIPE_START))
       : ((I = STATE_FINISH),
@@ -12348,6 +12427,7 @@ function CGame(m) {
           ((s_iBestScore = Math.floor(G)),
           saveItem(LOCALSTORAGE_STRING[LOCAL_BEST_SCORE], Math.floor(G))),
         c.createWinPanel(Math.floor(G)),
+        update_results(results),
         $(s_oMain).trigger('end_level', 1))
   }
   this.textGoal = function() {
