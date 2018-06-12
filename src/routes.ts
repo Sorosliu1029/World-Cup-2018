@@ -7,7 +7,7 @@ const router = new Router()
 async function game(ctx) {
   const games = await get_games()
   await ctx.render('game', {
-    games: take(games, 4),
+    games: take(games, 3),
   })
 }
 

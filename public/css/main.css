@@ -2,12 +2,6 @@ root {
   display: block;
 }
 
-body {
-  /* background-repeat: repeat;
-  background-position: top; */
-  /* background-image: url(../sprites/grass.jpeg); */
-}
-
 *,
 *:before,
 *:after {
@@ -77,19 +71,40 @@ canvas {
 
 /****************************************/
 #prediction {
-  margin-top: 10px;
   position: fixed;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding-top: 15px;
+}
+
+.background_img {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+
+  display: block;
+  background-image: url(../sprites/grass.jpeg);
+  background-position: top;
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
 }
 
 .game {
-  margin: 5px;
+  margin: 5px 0;
+  padding: 5px 0;
   width: 90%;
-  background-color: #F7E46A;
+  background-color: #f7e46a;
   border: thick double #79ad4d;
   display: flex;
   flex-direction: column;
@@ -98,12 +113,15 @@ canvas {
 }
 
 .info {
+  width: 100%;
+  margin: 5px 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .prediction_result {
+  font-size: 18px;
 }
 
 .flag {

@@ -20,6 +20,7 @@
 
 <body>
     <canvas id="canvas" class='ani_hack' width="1360" height="640"> </canvas>
+    <div class="background_img"></div>
     <div id="prediction">
         <% games.forEach(function(game) { %>
         <div class="game">
@@ -42,10 +43,11 @@
                 </div>
             </div>
             <div class="prediction_result">
-                home win
+                <span>预测结果： </span>
+                先玩个游戏吧
             </div>
             <div class="bet" hidden>
-                1.0,2.0,3.0
+                <%= game.euro_win %>,<%= game.euro_draw %>,<%= game.euro_lose %>
             </div>
         </div>
         <% }); %>

@@ -7,7 +7,7 @@ const router = new Router();
 async function game(ctx) {
     const games = await utils_1.get_games();
     await ctx.render('game', {
-        games: lodash_1.take(games, 4),
+        games: lodash_1.take(games, 3),
     });
 }
 async function about(ctx) {
